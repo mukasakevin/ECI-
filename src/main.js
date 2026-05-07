@@ -276,10 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
             section.questions.forEach((q) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${q}</td>
-                    <td class="col-choice"><input type="radio" name="q${questionIndex}" value="1"></td>
-                    <td class="col-choice"><input type="radio" name="q${questionIndex}" value="0"></td>
-                    <td class="col-choice"><input type="text" name="comment${questionIndex}" class="comment-input" placeholder="Commentaire..."></td>
+                    <td data-label="Critère">${q}</td>
+                    <td class="col-choice" data-label="Oui"><input type="radio" name="q${questionIndex}" value="1"></td>
+                    <td class="col-choice" data-label="Non"><input type="radio" name="q${questionIndex}" value="0"></td>
+                    <td class="col-choice" data-label="Commentaires"><input type="text" name="comment${questionIndex}" class="comment-input" placeholder="Commentaire..."></td>
                 `;
                 questionsBody.appendChild(row);
                 questionIndex++;
