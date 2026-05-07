@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECI - Outil d'Évaluation de Projet</title>
+    <meta name="description"
+        content="Outil interactif d'évaluation de conformité financière pour Eastern Congo Initiative (ECI).">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="background-blobs"></div>
+
+    <header class="app-header">
+        <div class="container">
+            <div class="header-top">
+                <img src="./src/assets/EIC.png" alt="ECI Logo" class="brand-logo">
+                <div class="brand-text">
+                    <span class="brand-name">EASTERN CONGO</span>
+                    <span class="brand-sub">INITIATIVE</span>
+                </div>
+            </div>
+            <h1 class="app-title">Outil d'Évaluation de Partenariat</h1>
+        </div>
+    </header>
+
+
+    <main class="container">
+        <section id="selection-screen" class="glass selection-container">
+            <h2>Commencer une nouvelle évaluation</h2>
+            <p class="selection-subtitle">Sélectionnez le type de partenaire pour accéder à la grille de conformité.</p>
+            <div class="selection-grid">
+                <button class="selection-btn" data-type="entrepreneur">Pour Entrepreneur</button>
+                <button class="selection-btn" data-type="ong">Partenaire ONG</button>
+            </div>
+        </section>
+
+        <div id="evaluation-content" class="hidden">
+            <button id="btn-back" class="btn-secondary btn-back">← Changer de type</button>
+            
+            <section class="config-card glass">
+                <h2>Configuration de l'Évaluation</h2>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="org-name">Nom de l'Organisation</label>
+                        <input type="text" id="org-name" placeholder="Ex: Maendeleo SARL">
+                    </div>
+                    <div class="input-group">
+                        <label for="eval-date">Date de l'Évaluation</label>
+                        <input type="date" id="eval-date">
+                    </div>
+                    <div class="input-group">
+                        <label for="responsible">Responsable ECI</label>
+                        <input type="text" id="responsible" placeholder="Nom du responsable">
+                    </div>
+                    <!-- Hidden select to maintain logic -->
+                    <select id="form-type" class="hidden">
+                        <option value="entrepreneur">Annexe A : Entrepreneur</option>
+                        <option value="ong">Annexe B : Partenaire ONG</option>
+                    </select>
+                </div>
+            </section>
+
+        <section id="questionnaire-section" class="glass">
+            <h2 id="questionnaire-title">Chargement...</h2>
+            <div class="table-container">
+                <table id="questionnaire-table">
+                    <thead>
+                        <tr>
+                            <th>Critères d'Évaluation</th>
+                            <th class="col-choice">Oui</th>
+                            <th class="col-choice">Non</th>
+                            <th class="col-choice">N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody id="questions-body">
+                        <!-- Questions will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="observations-container">
+                <label for="observations">Observations générales</label>
+                <textarea id="observations" rows="4" placeholder="Saisissez vos remarques ici..."></textarea>
+            </div>
+
+            <div class="actions">
+                <button id="btn-evaluate" class="btn btn-primary">Évaluer</button>
+                <button id="btn-pdf" class="btn btn-secondary">Télécharger PDF</button>
+            </div>
+        </section>
+
+        <section id="result-section" class="glass hidden">
+            <div class="result-header">
+                <h2>Résultat de l'Analyse</h2>
+                <div id="risk-badge" class="badge">Faible</div>
+            </div>
+            <div class="result-grid">
+                <div class="result-item">
+                    <span class="label">Score Total:</span>
+                    <span id="score-value" class="value">0%</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Statut:</span>
+                    <span id="status-value" class="value">Conforme</span>
+                </div>
+                <div class="result-item full-width">
+                    <span class="label">Recommandation:</span>
+                    <p id="recommendation-text" class="text">À financer sans réserve.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <div id="modal-add-question" class="modal hidden">
+        <div class="modal-content glass">
+            <h3>Ajouter une nouvelle question</h3>
+            <div class="input-group">
+                <label for="new-question-text">Énoncé du critère</label>
+                <textarea id="new-question-text" rows="3"
+                    placeholder="Ex: L'organisation dispose-t-elle d'un bureau physique ?"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-save-question" class="btn btn-primary">Enregistrer</button>
+                <button id="btn-close-modal" class="btn btn-secondary">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
